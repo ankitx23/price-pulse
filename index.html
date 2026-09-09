@@ -84,9 +84,9 @@
   }
 
   .wrap {
-    max-width: 1180px;
+    max-width: 1800px;
     margin: 0 auto;
-    padding: 28px 20px 64px;
+    padding: 28px 32px 64px;
   }
 
   header.report-head {
@@ -138,24 +138,14 @@
     margin-bottom: 22px;
     padding: 14px 0 12px;
     background: var(--bg);
-    border-bottom: 1px solid transparent;
+    border-bottom: 1px solid var(--border-soft);
     box-sizing: border-box;
-    transition: padding 0.15s ease, border-color 0.15s ease;
-  }
-
-  .stat-row.is-stuck {
-    width: 100vw;
-    margin-left: calc(50% - 50vw);
-    padding-left: max(24px, calc((100vw - 1600px) / 2));
-    padding-right: max(24px, calc((100vw - 1600px) / 2));
-    border-bottom-color: var(--border-soft);
   }
 
   .stat-row-inner {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 12px;
-    max-width: 1600px;
   }
 
   .stat-tile {
@@ -518,8 +508,7 @@
   }
 
   @media (max-width: 720px) {
-    .stat-row.is-stuck { padding-left: 16px; padding-right: 16px; }
-    .stat-row-inner { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: none; }
+    .stat-row-inner { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .detail-inner { grid-template-columns: 1fr; }
   }
 </style>
@@ -532,7 +521,7 @@
       <p class="meta">Daily average of net aggregate, net consolidated, and buy&nbsp;box&nbsp;net price per SKU &middot; window <span id="date-start">Sep 2, 2026</span> &ndash; <span id="date-end">Sep 8, 2026</span></p>
     </div>
     <div class="head-right">
-      snapshot generated <span id="generated-at">Sep 09, 2026 14:50</span><br>
+      snapshot generated <span id="generated-at">Sep 09, 2026 15:15</span><br>
       source: amazon_sellers_report_history
       <div style="margin-top:8px; display:flex; align-items:center; gap:8px; justify-content:flex-end;">
         <button class="refresh-btn" id="refresh-btn" type="button" title="Pull the latest published snapshot (does not reach the office server directly from a browser)">
@@ -544,8 +533,7 @@
     </div>
   </header>
 
-  <div id="stat-row-sentinel" style="height:1px;"></div>
-  <div class="stat-row" id="stat-row">
+  <div class="stat-row">
     <div class="stat-row-inner">
       <div class="stat-tile">
         <div class="stat-label">SKUs tracked</div>
@@ -632,19 +620,6 @@
     var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
     return months[parseInt(parts[1], 10) - 1] + ' ' + parseInt(parts[2], 10);
   }
-
-  // Widen/left-align the stat bar only once it's actually docked at the
-  // top of the viewport - not all the time, so it doesn't look misaligned
-  // with the rest of the (centered) page while at rest.
-  (function () {
-    var sentinel = document.getElementById('stat-row-sentinel');
-    var statRow = document.getElementById('stat-row');
-    if (!sentinel || !statRow || !window.IntersectionObserver) return;
-    var io = new IntersectionObserver(function (entries) {
-      statRow.classList.toggle('is-stuck', !entries[0].isIntersecting);
-    }, { threshold: 0 });
-    io.observe(sentinel);
-  })();
 
   document.getElementById('stat-count').textContent = ROWS.length.toLocaleString();
   document.getElementById('stat-aggr').innerHTML = fmtMoney(computeOverall('net_aggr')) || '&mdash;';
