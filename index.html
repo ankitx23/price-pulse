@@ -1,77 +1,77 @@
 <title>Vexwire Price Pulse</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #eef1f4;
+    --bg: #f5f5f7;
     --surface: #ffffff;
-    --surface-2: #f6f8fa;
-    --border: #d8dfe6;
-    --border-soft: #e6ebf0;
-    --ink: #16212d;
-    --ink-muted: #5c6b7b;
-    --ink-faint: #8a97a5;
-    --accent: #2957a4;
-    --accent-strong: #1c3f7a;
-    --accent-soft: #dfe9fa;
-    --accent-line: #3f74c7;
-    --focus: #2957a4;
-    --status-stable: #2f8f5e;
-    --status-stable-bg: #e2f3ea;
-    --status-moderate: #a3760a;
-    --status-moderate-bg: #faf1da;
-    --status-high: #c1453a;
-    --status-high-bg: #fbe7e4;
-    --shadow: 0 1px 2px rgba(22, 33, 45, 0.06), 0 8px 24px -14px rgba(22, 33, 45, 0.18);
+    --surface-2: #fbfbfd;
+    --border: rgba(0, 0, 0, 0.08);
+    --border-soft: rgba(0, 0, 0, 0.06);
+    --ink: #1d1d1f;
+    --ink-muted: #6e6e73;
+    --ink-faint: #86868b;
+    --accent: #0071e3;
+    --accent-strong: #0058b0;
+    --accent-soft: #e8f1fd;
+    --accent-line: #0071e3;
+    --focus: #0071e3;
+    --status-stable: #1a8f4c;
+    --status-stable-bg: #e5f8ec;
+    --status-moderate: #b06a00;
+    --status-moderate-bg: #fef1de;
+    --status-high: #d70015;
+    --status-high-bg: #fde7e8;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.03), 0 16px 40px -20px rgba(0, 0, 0, 0.16);
   }
 
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #10161d;
-      --surface: #171f28;
-      --surface-2: #1c2530;
-      --border: #2c3946;
-      --border-soft: #232e39;
-      --ink: #e9edf2;
-      --ink-muted: #9aa8b7;
-      --ink-faint: #6f7d8c;
-      --accent: #6ea8f0;
-      --accent-strong: #9cc4f7;
-      --accent-soft: #1b2a40;
-      --accent-line: #6ea8f0;
-      --focus: #6ea8f0;
-      --status-stable: #58cd93;
-      --status-stable-bg: #16301f;
-      --status-moderate: #e0b23e;
-      --status-moderate-bg: #362b12;
-      --status-high: #ec7267;
-      --status-high-bg: #3a1e1b;
-      --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px -14px rgba(0, 0, 0, 0.5);
+      --bg: #000000;
+      --surface: #1c1c1e;
+      --surface-2: #242426;
+      --border: rgba(255, 255, 255, 0.12);
+      --border-soft: rgba(255, 255, 255, 0.08);
+      --ink: #f5f5f7;
+      --ink-muted: #98989d;
+      --ink-faint: #6e6e73;
+      --accent: #2997ff;
+      --accent-strong: #6cb4ff;
+      --accent-soft: #0e2136;
+      --accent-line: #2997ff;
+      --focus: #2997ff;
+      --status-stable: #32d74b;
+      --status-stable-bg: #10301a;
+      --status-moderate: #ff9f0a;
+      --status-moderate-bg: #33230a;
+      --status-high: #ff453a;
+      --status-high-bg: #34120f;
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 16px 40px -20px rgba(0, 0, 0, 0.7);
     }
   }
 
   :root[data-theme="dark"] {
-    --bg: #10161d;
-    --surface: #171f28;
-    --surface-2: #1c2530;
-    --border: #2c3946;
-    --border-soft: #232e39;
-    --ink: #e9edf2;
-    --ink-muted: #9aa8b7;
-    --ink-faint: #6f7d8c;
-    --accent: #dd9354;
-    --accent-strong: #f0b47f;
-    --accent-soft: #3a2a1a;
-    --accent-line: #dd9354;
-    --focus: #6fa8dc;
-    --status-stable: #58cd93;
-    --status-stable-bg: #16301f;
-    --status-moderate: #e0b23e;
-    --status-moderate-bg: #362b12;
-    --status-high: #ec7267;
-    --status-high-bg: #3a1e1b;
-    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px -14px rgba(0, 0, 0, 0.5);
+    --bg: #000000;
+    --surface: #1c1c1e;
+    --surface-2: #242426;
+    --border: rgba(255, 255, 255, 0.12);
+    --border-soft: rgba(255, 255, 255, 0.08);
+    --ink: #f5f5f7;
+    --ink-muted: #98989d;
+    --ink-faint: #6e6e73;
+    --accent: #2997ff;
+    --accent-strong: #6cb4ff;
+    --accent-soft: #0e2136;
+    --accent-line: #2997ff;
+    --focus: #2997ff;
+    --status-stable: #32d74b;
+    --status-stable-bg: #10301a;
+    --status-moderate: #ff9f0a;
+    --status-moderate-bg: #33230a;
+    --status-high: #ff453a;
+    --status-high-bg: #34120f;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 16px 40px -20px rgba(0, 0, 0, 0.7);
   }
 
   * { box-sizing: border-box; }
@@ -79,14 +79,14 @@
   body {
     background: var(--bg);
     color: var(--ink);
-    font-family: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", sans-serif;
     -webkit-font-smoothing: antialiased;
   }
 
   .wrap {
     max-width: 1800px;
     margin: 0 auto;
-    padding: 28px 32px 64px;
+    padding: 40px 32px 72px;
   }
 
   header.report-head {
@@ -95,31 +95,30 @@
     justify-content: space-between;
     align-items: flex-end;
     gap: 12px;
-    margin-bottom: 22px;
+    margin-bottom: 32px;
   }
 
   h1 {
-    font-family: "IBM Plex Sans", sans-serif;
     font-weight: 700;
-    font-size: 26px;
-    letter-spacing: -0.01em;
-    margin: 0 0 4px;
+    font-size: 34px;
+    letter-spacing: -0.025em;
+    margin: 0 0 6px;
     text-wrap: balance;
   }
 
   .eyebrow {
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 600;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin: 0 0 6px;
+    letter-spacing: 0.02em;
+    color: var(--ink-faint);
+    margin: 0 0 8px;
   }
 
   .meta {
     color: var(--ink-muted);
-    font-size: 13.5px;
+    font-size: 15px;
     line-height: 1.5;
+    letter-spacing: -0.005em;
   }
 
   .meta a { color: var(--ink-muted); }
@@ -135,9 +134,11 @@
     position: sticky;
     top: 0;
     z-index: 15;
-    margin-bottom: 22px;
-    padding: 14px 0 12px;
-    background: var(--bg);
+    margin: 0 -32px 28px;
+    padding: 16px 32px 14px;
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    backdrop-filter: blur(20px) saturate(1.6);
+    -webkit-backdrop-filter: blur(20px) saturate(1.6);
     border-bottom: 1px solid var(--border-soft);
     box-sizing: border-box;
   }
@@ -145,30 +146,30 @@
   .stat-row-inner {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 12px;
+    gap: 14px;
   }
 
   .stat-tile {
     background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 14px 16px;
+    border: 1px solid var(--border-soft);
+    border-radius: 16px;
+    padding: 16px 20px;
     box-shadow: var(--shadow);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
 
   .stat-label {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0;
     color: var(--ink-muted);
     margin-bottom: 8px;
   }
 
   .stat-value {
-    font-family: "IBM Plex Mono", monospace;
-    font-weight: 600;
-    font-size: 24px;
+    font-weight: 700;
+    font-size: 28px;
+    letter-spacing: -0.02em;
     font-variant-numeric: tabular-nums;
     color: var(--ink);
   }
@@ -180,7 +181,7 @@
     margin-left: 2px;
   }
 
-  .stat-tile.accent .stat-value { color: var(--accent-strong); }
+  .stat-tile.accent .stat-value { color: var(--accent); }
 
   .toolbar {
     display: flex;
@@ -198,18 +199,20 @@
 
   .search-box input {
     width: 100%;
-    padding: 9px 12px 9px 32px;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    background: var(--surface);
+    padding: 10px 14px 10px 34px;
+    border-radius: 980px;
+    border: 1px solid transparent;
+    background: var(--surface-2);
     color: var(--ink);
-    font-size: 13.5px;
+    font-size: 14px;
     font-family: inherit;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease;
   }
 
   .search-box input:focus-visible {
-    outline: 2px solid var(--focus);
-    outline-offset: 1px;
+    outline: none;
+    background: var(--surface);
+    box-shadow: 0 0 0 4px var(--accent-soft), 0 0 0 1px var(--focus);
   }
 
   .search-box svg {
@@ -237,8 +240,8 @@
 
   .table-scroll {
     overflow-x: auto;
-    border: 1px solid var(--border);
-    border-radius: 12px;
+    border: 1px solid var(--border-soft);
+    border-radius: 18px;
     background: var(--surface);
     box-shadow: var(--shadow);
   }
@@ -251,18 +254,21 @@
 
   table.report thead th {
     background: var(--surface-2);
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--border-soft);
     text-align: left;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 600;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
+    letter-spacing: 0;
     color: var(--ink-muted);
-    padding: 10px 14px;
+    padding: 14px 18px;
     cursor: pointer;
     user-select: none;
     white-space: nowrap;
+    transition: color 0.15s ease;
   }
+
+  table.report thead tr th:first-child { border-top-left-radius: 18px; }
+  table.report thead tr th:last-child { border-top-right-radius: 18px; }
 
   table.report thead th.num { text-align: right; }
   table.report thead th:hover { color: var(--ink); }
@@ -278,12 +284,13 @@
   table.report tbody tr.row {
     border-bottom: 1px solid var(--border-soft);
     cursor: pointer;
+    transition: background-color 0.12s ease;
   }
-  table.report tbody tr.row:hover { background: var(--surface-2); }
+  table.report tbody tr.row:hover { background: var(--accent-soft); }
   table.report tbody tr.row:last-child { border-bottom: none; }
 
   table.report td {
-    padding: 10px 14px;
+    padding: 14px 18px;
     vertical-align: top;
   }
 
@@ -381,7 +388,7 @@
   }
 
   .detail-inner {
-    padding: 18px 20px 20px;
+    padding: 20px 22px 22px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 16px;
@@ -389,9 +396,9 @@
 
   .detail-card {
     background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 12px 14px;
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+    padding: 14px 16px;
   }
 
   .detail-card h4 {
@@ -435,36 +442,38 @@
   }
 
   .pager button {
-    font-family: "IBM Plex Sans", sans-serif;
-    font-size: 12.5px;
+    font-family: inherit;
+    font-size: 13px;
     font-weight: 600;
-    border: 1px solid var(--border);
-    background: var(--surface);
+    border: none;
+    background: var(--surface-2);
     color: var(--ink);
-    border-radius: 7px;
-    padding: 6px 12px;
+    border-radius: 980px;
+    padding: 7px 16px;
     cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
   }
   .pager button:disabled { opacity: 0.4; cursor: default; }
-  .pager button:not(:disabled):hover { border-color: var(--accent); color: var(--accent-strong); }
-  .pager button:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+  .pager button:not(:disabled):hover { background: var(--accent-soft); color: var(--accent-strong); }
+  .pager button:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 
   .refresh-btn {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    font-family: "IBM Plex Sans", sans-serif;
-    font-size: 12.5px;
+    font-family: inherit;
+    font-size: 13px;
     font-weight: 600;
-    border: 1px solid var(--border);
-    background: var(--surface);
+    border: none;
+    background: var(--surface-2);
     color: var(--ink);
-    border-radius: 7px;
-    padding: 7px 12px;
+    border-radius: 980px;
+    padding: 8px 16px;
     cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
   }
-  .refresh-btn:hover { border-color: var(--accent); color: var(--accent-strong); }
-  .refresh-btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+  .refresh-btn:hover { background: var(--accent-soft); color: var(--accent-strong); }
+  .refresh-btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
   .refresh-btn:disabled { opacity: 0.55; cursor: default; }
   .refresh-btn svg { width: 13px; height: 13px; transition: transform 0.5s ease; }
   .refresh-btn.spinning svg { animation: refresh-spin 0.8s linear infinite; }
@@ -521,7 +530,7 @@
       <p class="meta">Daily average of net aggregate, net consolidated, and buy&nbsp;box&nbsp;net price per SKU &middot; window <span id="date-start">Sep 2, 2026</span> &ndash; <span id="date-end">Sep 8, 2026</span></p>
     </div>
     <div class="head-right">
-      snapshot generated <span id="generated-at">Sep 09, 2026 15:15</span><br>
+      snapshot generated <span id="generated-at">Sep 09, 2026 15:22</span><br>
       source: amazon_sellers_report_history
       <div style="margin-top:8px; display:flex; align-items:center; gap:8px; justify-content:flex-end;">
         <button class="refresh-btn" id="refresh-btn" type="button" title="Pull the latest published snapshot (does not reach the office server directly from a browser)">
