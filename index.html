@@ -12,11 +12,11 @@
     --ink: #16212d;
     --ink-muted: #5c6b7b;
     --ink-faint: #8a97a5;
-    --accent: #a85a1b;
-    --accent-strong: #7c4212;
-    --accent-soft: #f3e2cd;
-    --accent-line: #c97a34;
-    --focus: #2f6fb0;
+    --accent: #2957a4;
+    --accent-strong: #1c3f7a;
+    --accent-soft: #dfe9fa;
+    --accent-line: #3f74c7;
+    --focus: #2957a4;
     --status-stable: #2f8f5e;
     --status-stable-bg: #e2f3ea;
     --status-moderate: #a3760a;
@@ -36,11 +36,11 @@
       --ink: #e9edf2;
       --ink-muted: #9aa8b7;
       --ink-faint: #6f7d8c;
-      --accent: #dd9354;
-      --accent-strong: #f0b47f;
-      --accent-soft: #3a2a1a;
-      --accent-line: #dd9354;
-      --focus: #6fa8dc;
+      --accent: #6ea8f0;
+      --accent-strong: #9cc4f7;
+      --accent-soft: #1b2a40;
+      --accent-line: #6ea8f0;
+      --focus: #6ea8f0;
       --status-stable: #58cd93;
       --status-stable-bg: #16301f;
       --status-moderate: #e0b23e;
@@ -132,16 +132,23 @@
   }
 
   .stat-row {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    margin: 0 0 22px;
-    padding: 12px 0;
     position: sticky;
     top: 0;
     z-index: 15;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-bottom: 22px;
+    padding: 14px max(20px, calc((100vw - 1600px) / 2)) 12px 28px;
     background: var(--bg);
     border-bottom: 1px solid var(--border-soft);
+    box-sizing: border-box;
+  }
+
+  .stat-row-inner {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 260px));
+    gap: 12px;
+    max-width: 1600px;
   }
 
   .stat-tile {
@@ -504,7 +511,8 @@
   }
 
   @media (max-width: 720px) {
-    .stat-row { grid-template-columns: repeat(2, 1fr); }
+    .stat-row { padding-left: 16px; padding-right: 16px; }
+    .stat-row-inner { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: none; }
     .detail-inner { grid-template-columns: 1fr; }
   }
 </style>
@@ -517,7 +525,7 @@
       <p class="meta">Daily average of net aggregate, net consolidated, and buy&nbsp;box&nbsp;net price per SKU &middot; window <span id="date-start">Sep 2, 2026</span> &ndash; <span id="date-end">Sep 8, 2026</span></p>
     </div>
     <div class="head-right">
-      snapshot generated <span id="generated-at">Sep 09, 2026 13:14</span><br>
+      snapshot generated <span id="generated-at">Sep 09, 2026 14:45</span><br>
       source: amazon_sellers_report_history
       <div style="margin-top:8px; display:flex; align-items:center; gap:8px; justify-content:flex-end;">
         <button class="refresh-btn" id="refresh-btn" type="button" title="Pull the latest published snapshot (does not reach the office server directly from a browser)">
@@ -530,21 +538,23 @@
   </header>
 
   <div class="stat-row">
-    <div class="stat-tile">
-      <div class="stat-label">SKUs tracked</div>
-      <div class="stat-value" id="stat-count">&mdash;</div>
-    </div>
-    <div class="stat-tile accent">
-      <div class="stat-label">Avg net aggr</div>
-      <div class="stat-value" id="stat-aggr">&mdash;</div>
-    </div>
-    <div class="stat-tile accent">
-      <div class="stat-label">Avg net cons</div>
-      <div class="stat-value" id="stat-cons">&mdash;</div>
-    </div>
-    <div class="stat-tile accent">
-      <div class="stat-label">Avg buy box net</div>
-      <div class="stat-value" id="stat-buybox">&mdash;</div>
+    <div class="stat-row-inner">
+      <div class="stat-tile">
+        <div class="stat-label">SKUs tracked</div>
+        <div class="stat-value" id="stat-count">&mdash;</div>
+      </div>
+      <div class="stat-tile accent">
+        <div class="stat-label">Avg net aggr</div>
+        <div class="stat-value" id="stat-aggr">&mdash;</div>
+      </div>
+      <div class="stat-tile accent">
+        <div class="stat-label">Avg net cons</div>
+        <div class="stat-value" id="stat-cons">&mdash;</div>
+      </div>
+      <div class="stat-tile accent">
+        <div class="stat-label">Avg buy box net</div>
+        <div class="stat-value" id="stat-buybox">&mdash;</div>
+      </div>
     </div>
   </div>
 
