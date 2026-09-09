@@ -17,6 +17,12 @@
     --accent-soft: #f3e2cd;
     --accent-line: #c97a34;
     --focus: #2f6fb0;
+    --status-stable: #2f8f5e;
+    --status-stable-bg: #e2f3ea;
+    --status-moderate: #a3760a;
+    --status-moderate-bg: #faf1da;
+    --status-high: #c1453a;
+    --status-high-bg: #fbe7e4;
     --shadow: 0 1px 2px rgba(22, 33, 45, 0.06), 0 8px 24px -14px rgba(22, 33, 45, 0.18);
   }
 
@@ -35,6 +41,12 @@
       --accent-soft: #3a2a1a;
       --accent-line: #dd9354;
       --focus: #6fa8dc;
+      --status-stable: #58cd93;
+      --status-stable-bg: #16301f;
+      --status-moderate: #e0b23e;
+      --status-moderate-bg: #362b12;
+      --status-high: #ec7267;
+      --status-high-bg: #3a1e1b;
       --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px -14px rgba(0, 0, 0, 0.5);
     }
   }
@@ -53,6 +65,12 @@
     --accent-soft: #3a2a1a;
     --accent-line: #dd9354;
     --focus: #6fa8dc;
+    --status-stable: #58cd93;
+    --status-stable-bg: #16301f;
+    --status-moderate: #e0b23e;
+    --status-moderate-bg: #362b12;
+    --status-high: #ec7267;
+    --status-high-bg: #3a1e1b;
     --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px -14px rgba(0, 0, 0, 0.5);
   }
 
@@ -301,6 +319,54 @@
     margin-top: 3px;
   }
 
+  .tag-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 5px;
+    margin-top: 4px;
+  }
+
+  .pill {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 1px 7px;
+    border-radius: 999px;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+  }
+  .pill-stable { color: var(--status-stable); background: var(--status-stable-bg); }
+  .pill-moderate { color: var(--status-moderate); background: var(--status-moderate-bg); }
+  .pill-high { color: var(--status-high); background: var(--status-high-bg); }
+
+  .trend-arrow {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    color: var(--ink-faint);
+  }
+
+  .detail-card .tag-row {
+    justify-content: flex-start;
+    margin: 0 0 8px;
+  }
+  .detail-card .pill { font-size: 10.5px; padding: 2px 8px; }
+
+  .stats-line {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10.5px;
+    color: var(--ink-muted);
+  }
+
+  .combined-line {
+    margin-top: 4px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--ink-faint);
+  }
+
   tr.detail-row td {
     background: var(--surface-2);
     padding: 0;
@@ -375,6 +441,35 @@
   .pager button:not(:disabled):hover { border-color: var(--accent); color: var(--accent-strong); }
   .pager button:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
 
+  .refresh-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 12.5px;
+    font-weight: 600;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--ink);
+    border-radius: 7px;
+    padding: 7px 12px;
+    cursor: pointer;
+  }
+  .refresh-btn:hover { border-color: var(--accent); color: var(--accent-strong); }
+  .refresh-btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+  .refresh-btn:disabled { opacity: 0.55; cursor: default; }
+  .refresh-btn svg { width: 13px; height: 13px; transition: transform 0.5s ease; }
+  .refresh-btn.spinning svg { animation: refresh-spin 0.8s linear infinite; }
+  @keyframes refresh-spin { to { transform: rotate(360deg); } }
+
+  .refresh-status {
+    font-size: 12px;
+    color: var(--ink-faint);
+    font-family: "IBM Plex Mono", monospace;
+  }
+  .refresh-status.ok { color: var(--status-stable); }
+  .refresh-status.err { color: var(--status-high); }
+
   .empty-state {
     padding: 48px 20px;
     text-align: center;
@@ -415,11 +510,18 @@
     <div>
       <p class="eyebrow">Vexwire &middot; Amazon Sellers</p>
       <h1>Price Pulse</h1>
-      <p class="meta">Daily average of net aggregate, net consolidated, and buy&nbsp;box&nbsp;net price per SKU &middot; window __DATE_START__ &ndash; __DATE_END__</p>
+      <p class="meta">Daily average of net aggregate, net consolidated, and buy&nbsp;box&nbsp;net price per SKU &middot; window <span id="date-start">__DATE_START__</span> &ndash; <span id="date-end">__DATE_END__</span></p>
     </div>
     <div class="head-right">
-      snapshot generated __GENERATED_AT__<br>
+      snapshot generated <span id="generated-at">__GENERATED_AT__</span><br>
       source: amazon_sellers_report_history
+      <div style="margin-top:8px; display:flex; align-items:center; gap:8px; justify-content:flex-end;">
+        <button class="refresh-btn" id="refresh-btn" type="button" title="Pull the latest published snapshot (does not reach the office server directly from a browser)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
+          Refresh
+        </button>
+        <span class="refresh-status" id="refresh-status"></span>
+      </div>
     </div>
   </header>
 
@@ -552,12 +654,36 @@
     return svg;
   }
 
+  var PILL_CLASS = { 'Stable': 'pill-stable', 'Moderate': 'pill-moderate', 'Highly Variable': 'pill-high' };
+  var TREND_ARROW = { 'Trending Up': '↑', 'Trending Down': '↓', 'Flat': '→' };
+
+  function tagRow(trend, big) {
+    if (!trend || trend.variability === 'N/A') return '';
+    var pillClass = PILL_CLASS[trend.variability] || 'pill-stable';
+    var label = big ? trend.variability : trend.variability.replace('Highly Variable', 'High var.');
+    var arrow = TREND_ARROW[trend.trend] || '';
+    var arrowTitle = trend.trend || '';
+    return '<div class="tag-row"><span class="pill ' + pillClass + '">' + label + '</span>' +
+      (arrow ? '<span class="trend-arrow" title="' + arrowTitle + '">' + arrow + '</span>' : '') +
+      '</div>';
+  }
+
   function metricCell(row, metric) {
     var v = row.avg[metric];
     if (v === null || v === undefined) {
       return '<td class="metric"><span class="metric-none">no data</span></td>';
     }
-    return '<td class="metric"><span class="metric-val">' + fmtMoney(v) + '</span><div class="spark-wrap">' + renderSparkSVG(row[metric], 58, 18, false) + '</div></td>';
+    return '<td class="metric"><span class="metric-val">' + fmtMoney(v) + '</span><div class="spark-wrap">' + renderSparkSVG(row[metric], 58, 18, false) + '</div>' + tagRow(row.trend[metric], false) + '</td>';
+  }
+
+  function statsLine(trend) {
+    if (!trend || trend.variability === 'N/A') return '';
+    var pct = function (v) { return (v * 100).toFixed(1) + '%'; };
+    return '<div class="stats-line">' +
+      '<span>CV ' + pct(trend.cv) + '</span>' +
+      '<span>range ' + pct(trend.range_pct) + '</span>' +
+      '<span>' + trend.jumps + ' big jump' + (trend.jumps === 1 ? '' : 's') + '</span>' +
+      '</div><div class="combined-line">' + trend.combined + '</div>';
   }
 
   function detailCard(row, metric) {
@@ -566,7 +692,7 @@
       row[metric].map(function (v, i) { return '<div class="d">' + fmtDate(DATES[i]) + '</div>'; }).join('') +
       row[metric].map(function (v) { return '<div class="v">' + (v === null || v === undefined ? '&ndash;' : v.toFixed(2)) + '</div>'; }).join('') +
       '</div>';
-    return '<div class="detail-card"><h4>' + METRIC_LABEL[metric] + '</h4>' + big + figs + '</div>';
+    return '<div class="detail-card"><h4>' + METRIC_LABEL[metric] + '</h4>' + tagRow(row.trend[metric], true) + big + figs + statsLine(row.trend[metric]) + '</div>';
   }
 
   function renderRows() {
@@ -696,6 +822,51 @@
       th.querySelector('.arrow').textContent = state.sortDir === 1 ? '↑' : '↓';
       applyFilterSort();
     });
+  });
+
+  function fmtGeneratedNow() {
+    var d = new Date();
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    function pad(n) { return n < 10 ? '0' + n : '' + n; }
+    return months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear() + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes());
+  }
+
+  var refreshBtn = document.getElementById('refresh-btn');
+  var refreshStatus = document.getElementById('refresh-status');
+
+  refreshBtn.addEventListener('click', function () {
+    refreshBtn.disabled = true;
+    refreshBtn.classList.add('spinning');
+    refreshStatus.className = 'refresh-status';
+    refreshStatus.textContent = 'Checking for newer data…';
+
+    fetch('report-data.json?ts=' + Date.now(), { cache: 'no-store' })
+      .then(function (resp) {
+        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+        return resp.json();
+      })
+      .then(function (data) {
+        ROWS = data.rows;
+        DATES = data.dates;
+        document.getElementById('date-start').textContent = fmtDate(DATES[0]);
+        document.getElementById('date-end').textContent = fmtDate(DATES[DATES.length - 1]);
+        document.getElementById('generated-at').textContent = fmtGeneratedNow();
+        document.getElementById('stat-count').textContent = ROWS.length.toLocaleString();
+        document.getElementById('stat-aggr').innerHTML = fmtMoney(computeOverall('net_aggr')) || '&mdash;';
+        document.getElementById('stat-cons').innerHTML = fmtMoney(computeOverall('net_cons')) || '&mdash;';
+        document.getElementById('stat-buybox').innerHTML = fmtMoney(computeOverall('buy_box_net')) || '&mdash;';
+        applyFilterSort();
+        refreshStatus.className = 'refresh-status ok';
+        refreshStatus.textContent = 'Updated ✓';
+      })
+      .catch(function (err) {
+        refreshStatus.className = 'refresh-status err';
+        refreshStatus.textContent = 'Could not refresh (' + err.message + ')';
+      })
+      .finally(function () {
+        refreshBtn.disabled = false;
+        refreshBtn.classList.remove('spinning');
+      });
   });
 
   applyFilterSort();
