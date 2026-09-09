@@ -654,17 +654,41 @@
     return pts;
   }
 
+  function segPath(seg) {
+    return seg.map(function (p, idx) { return (idx === 0 ? 'M' : 'L') + p.x.toFixed(1) + ',' + p.y.toFixed(1); }).join(' ');
+  }
+
   function renderSparkSVG(values, w, h, big) {
     var pad = big ? 6 : 3;
     var pts = sparkPath(values, w, h, pad);
     if (!pts) return '<span class="metric-none">not enough data</span>';
-    var d = pts.map(function (p, idx) { return (idx === 0 ? 'M' : 'L') + p.x.toFixed(1) + ',' + p.y.toFixed(1); }).join(' ');
-    var last = pts[pts.length - 1];
+
+    // Split into runs of consecutive days; a run boundary means one or more
+    // days in between have no value, e.g. missing Sep 7 - draw that span
+    // dashed instead of a solid line, so a gap in the data reads as a gap,
+    // not as a plausible measured trend across the missing day.
+    var runs = [[pts[0]]];
+    var gaps = [];
+    for (var k = 1; k < pts.length; k++) {
+      if (pts[k].i === pts[k - 1].i + 1) {
+        runs[runs.length - 1].push(pts[k]);
+      } else {
+        gaps.push([pts[k - 1], pts[k]]);
+        runs.push([pts[k]]);
+      }
+    }
+
     var strokeW = big ? 2 : 1.4;
     var dotR = big ? 3.5 : 2.2;
     var svg = '<svg width="' + w + '" height="' + h + '" viewBox="0 0 ' + w + ' ' + h + '" class="spark" role="img" aria-label="7 day trend">';
     svg += '<line x1="' + pad + '" y1="' + (h - pad) + '" x2="' + (w - pad) + '" y2="' + (h - pad) + '" stroke="var(--border)" stroke-width="1"/>';
-    svg += '<path d="' + d + '" fill="none" stroke="var(--accent-line)" stroke-width="' + strokeW + '" stroke-linecap="round" stroke-linejoin="round"/>';
+    gaps.forEach(function (seg) {
+      svg += '<path d="' + segPath(seg) + '" fill="none" stroke="var(--accent-line)" stroke-width="' + strokeW + '" stroke-linecap="round" stroke-dasharray="2.5,3" opacity="0.5"/>';
+    });
+    runs.forEach(function (seg) {
+      if (seg.length < 2) return;
+      svg += '<path d="' + segPath(seg) + '" fill="none" stroke="var(--accent-line)" stroke-width="' + strokeW + '" stroke-linecap="round" stroke-linejoin="round"/>';
+    });
     pts.forEach(function (p, idx) {
       var isLast = idx === pts.length - 1;
       svg += '<circle class="spark-pt" cx="' + p.x.toFixed(1) + '" cy="' + p.y.toFixed(1) + '" r="' + (isLast ? dotR : (big ? 2.4 : 0)) + '" fill="' + (isLast ? 'var(--accent)' : 'var(--ink-faint)') + '" data-date="' + DATES[p.i] + '" data-val="' + p.v.toFixed(2) + '"' + (big ? ' data-hoverable="1"' : '') + '/>';
