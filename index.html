@@ -135,7 +135,13 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 12px;
-    margin-bottom: 22px;
+    margin: 0 0 22px;
+    padding: 12px 0;
+    position: sticky;
+    top: 0;
+    z-index: 15;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border-soft);
   }
 
   .stat-tile {
@@ -241,7 +247,8 @@
 
   table.report thead th {
     position: sticky;
-    top: 0;
+    top: var(--stat-row-h, 100px);
+    z-index: 10;
     background: var(--surface-2);
     border-bottom: 1px solid var(--border);
     text-align: left;
@@ -513,7 +520,7 @@
       <p class="meta">Daily average of net aggregate, net consolidated, and buy&nbsp;box&nbsp;net price per SKU &middot; window <span id="date-start">Sep 2, 2026</span> &ndash; <span id="date-end">Sep 8, 2026</span></p>
     </div>
     <div class="head-right">
-      snapshot generated <span id="generated-at">Sep 09, 2026 11:28</span><br>
+      snapshot generated <span id="generated-at">Sep 09, 2026 12:48</span><br>
       source: amazon_sellers_report_history
       <div style="margin-top:8px; display:flex; align-items:center; gap:8px; justify-content:flex-end;">
         <button class="refresh-btn" id="refresh-btn" type="button" title="Pull the latest published snapshot (does not reach the office server directly from a browser)">
@@ -610,6 +617,13 @@
     var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
     return months[parseInt(parts[1], 10) - 1] + ' ' + parseInt(parts[2], 10);
   }
+
+  function syncStickyOffset() {
+    var statRow = document.querySelector('.stat-row');
+    if (statRow) document.documentElement.style.setProperty('--stat-row-h', statRow.offsetHeight + 'px');
+  }
+  syncStickyOffset();
+  window.addEventListener('resize', syncStickyOffset);
 
   document.getElementById('stat-count').textContent = ROWS.length.toLocaleString();
   document.getElementById('stat-aggr').innerHTML = fmtMoney(computeOverall('net_aggr')) || '&mdash;';
