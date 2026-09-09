@@ -247,7 +247,7 @@
 
   table.report thead th {
     position: sticky;
-    top: var(--stat-row-h, 100px);
+    top: 0;
     z-index: 10;
     background: var(--surface-2);
     border-bottom: 1px solid var(--border);
@@ -617,13 +617,6 @@
     var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
     return months[parseInt(parts[1], 10) - 1] + ' ' + parseInt(parts[2], 10);
   }
-
-  function syncStickyOffset() {
-    var statRow = document.querySelector('.stat-row');
-    if (statRow) document.documentElement.style.setProperty('--stat-row-h', statRow.offsetHeight + 'px');
-  }
-  syncStickyOffset();
-  window.addEventListener('resize', syncStickyOffset);
 
   document.getElementById('stat-count').textContent = ROWS.length.toLocaleString();
   document.getElementById('stat-aggr').innerHTML = fmtMoney(computeOverall('net_aggr')) || '&mdash;';
